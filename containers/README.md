@@ -54,3 +54,38 @@ Complete!
 
 
 ```
+
+## Centos 7 -- Based docker image 
+
+### How to use it 
+
+```
+docker run -itd --name x1 --privileged  -v /sys/fs/cgroup/:/sys/fs/cgroup:ro -itd centos/systemd
+```
+
+### access and check it 
+
+```
+root@ashu-docker-vm:~# docker exec -it x1 bash 
+[root@b9e7999ba930 /]# 
+[root@b9e7999ba930 /]#
+
+
+[root@b9e7999ba930 /]# yum install httpd -y
+Loaded plugins: fastestmirror, ovl
+Loading mirror speeds from cached hostfile
+ * base: centos.excellmedia.net
+ * extras: centos.excellmedia.net
+ * updates: centos.excellmedia.net
+Package httpd-2.4.6-99.el7.centos.1.x86_64 already installed and latest version
+Nothing to do
+
+
+[root@b9e7999ba930 /]# 
+[root@b9e7999ba930 /]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)
+   Active: active (running) since Sun 2023-09-24 04:04:38 UTC; 10min ago
+     Docs: man:httpd(8)
+
+```
