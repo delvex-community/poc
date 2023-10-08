@@ -1,0 +1,49 @@
+prometheus:
+  prometheusSpec:
+    additionalScrapeConfigs:
+     - job_name: 'prometheus'
+       scrape_interval: 5s
+       static_configs:
+        - targets: ['localhost:9090']
+     - job_name: 'mysql-exporter'
+       scrape_interval: 5s
+       static_configs:
+        - targets: ['mysql-exporter-service.mysql.svc.cluster.local:9104']
+
+alertmanager:
+  config:
+    route:
+      group_by: ['alertname', 'priority']
+      group_wait: 10s
+      group_interval: 1m
+      routes:
+      - match:
+          alertname: Watchdog
+        receiver: 'null' 
+      - receiver: 'email-harsh'
+        continue: true
+        match:
+          alertname: KubeControllerManagerDown
+      - receiver: "msteams"
+        match: 
+          alertname: KubeControllerManagerDown
+        continue: true
+      - receiver: "msteams"
+        continue: true
+        match:
+          alertname: KubeSchedulerDown
+    receivers:
+      - name: "null"
+      - name: "msteams"
+        webhook_configs:
+        - url: "http://prometheus-msteams.monitoring.svc.cluster.local:2000/delvex"
+          send_resolved: true
+      - name: "email-harsh"
+        email_configs:
+        - to: 'harsh1213012001@gmail.com'
+          from: 'delvexcommunity@gmail.com'
+          auth_username: 'delvexcommunity@gmail.com'
+          auth_password: 'wcpkasbimqazdtks'
+          smarthost: 'smtp.gmail.com:587'
+          require_tls: true
+          send_resolved: true

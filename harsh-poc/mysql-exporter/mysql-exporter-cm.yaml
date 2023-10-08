@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-configmap
+  namespace: mysql
+data:
+  my.cnf: |
+    [client]
+    user=root
+    password=12345
+    host=mysql-service
+    port=3306

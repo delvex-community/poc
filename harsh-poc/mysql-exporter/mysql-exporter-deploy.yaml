@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-exporter-deployment
+  namespace: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-exporter
+  template:
+    metadata:
+      labels:
+        app: mysql-exporter
+    spec:
+      containers:
+        - name: mysql-exporter
+          image: prom/mysqld-exporter:latest
+          args:
+            - "--collect.auto_increment.columns"
+            - "--web.listen-address=:9104"
+            - "--web.telemetry-path=/metrics"
+            - "--config.my-cnf=/etc/.my.cnf"
+          ports:
+            - containerPort: 9104
+          volumeMounts:
+            - name: my-cnf-config
+              mountPath: /etc/.my.cnf
+              readOnly: true
+              subPath: my.cnf
+      volumes:
+        - name: my-cnf-config
+          configMap:
+            name: mysql-configmap
