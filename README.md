@@ -32,7 +32,7 @@ These exporters are essential tools for effectively monitoring Windows systems (
 
 1. Search for Server Manager > Local Server > Real-Time Protection Off
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/01-Disable-Enhanced-Security.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/01-Disable-Enhanced-Security.png" width="1800" height="900"/>
 
 ### Disable Windows Firewall / Defender
 Open the Control Panel on your Windows server.
@@ -42,7 +42,7 @@ Select the "Turn off Windows Defender Firewall" option for both private and publ
 Click "OK" to save the settings.
 Disable Windows Defender:
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/02-Disable-Firewall.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/02-Disable-Firewall.png" width="1800" height="900"/>
 
 ### Install WMI Exporter from WMI Release Page:
 
@@ -53,13 +53,13 @@ Disable Windows Defender:
 
 4. Go into directory & execute the file.
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/03-Running-Windows-Exporter.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/03-Running-Windows-Exporter.png" width="1800" height="900"/>
 
 5. By Default, WMI Exporter runs on Port 9182 
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/04-Hitting-URL.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/04-Hitting-URL.png" width="1800" height="900"/>
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/05-Hitting-Metrics-URL.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/05-Hitting-Metrics-URL.png" width="1800" height="900"/>
 
 6. In order for it to be scraped by Prometheus, we need to open Port 9182
 
@@ -72,9 +72,9 @@ Disable Windows Defender:
 3.  Click on the "Inbound rules" tab and then click "Edit inbound rules."
 4.  Add a rule to allow inbound traffic on port 9182 (the default port for WMI Exporter) by specifying the port (9182) and the source (e.g., your IP address or a custom range).
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/06-SG-Port.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/06-SG-Port.png" width="1800" height="900"/>
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/07-Hitting-Public-IP.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/07-Hitting-Public-IP.png" width="1800" height="900"/>
 
 ### Registering the target in `prometheus.yaml`
 ```
