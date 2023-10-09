@@ -142,7 +142,7 @@ Here's a quick break down of the configuration :-
 
 1. Clone this [Github Repository](https://github.com/harssssshh/Mongo-Flask-Dashboard)
 2. 3. Go into `MongoDB Flask Dashboard` directory
-3. Switch to monitoring branch using `git switch monitoring`.
+3. Switch to logging branch using `git switch logging`.
 4. Go into `eks-deployments` directory.
 5. Go through each of these manifests thoroughly and keep applying the manifests.
 6. Apply manifests in directory `kubectl apply -f .`
