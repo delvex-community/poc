@@ -51,22 +51,22 @@ Disable Windows Defender:
 
 4. Go into directory & execute the file.
 
-5. By Default, WMI Exporter runs on Port 9182 
+5. By Default, WMI Exporter runs on Port 9182
 
 6. In order for it to be scraped by Prometheus, we need to open Port 9182
 
 4. Expose Port Number 9182 in Security Group in AWS:
 
-### Sign in to the AWS Management Console.
+### Sign in to the AWS Management Console
 
-1.  Navigate to the EC2 dashboard and click on "Security Groups" in the left sidebar.
-2.  Select the security group associated with your Windows server instance.
-3.  Click on the "Inbound rules" tab and then click "Edit inbound rules."
-4.  Add a rule to allow inbound traffic on port 9182 (the default port for WMI Exporter) by specifying the port (9182) and the source (e.g., your IP address or a custom range).
-
-
+1. Navigate to the EC2 dashboard and click on "Security Groups" in the left sidebar
+2. Select the security group associated with your Windows server instance.
+3. Click on the "Inbound rules" tab and then click "Edit inbound rules."
+4. Add a rule to allow inbound traffic on port 9182 (the default port for WMI Exporter) by specifying the port (9182) and the source (e.g., your IP address or a custom range)
 ### Registering the target in `prometheus.yaml`
+
 ```
+
 global:
   scrape_interval: 15s  # Scrape targets every 15 seconds.
 
@@ -74,6 +74,7 @@ scrape_configs:
   - job_name: 'wmi_exporter'
     static_configs:
       - targets: ['windows_machine_ip:9182']
+
 ```
 
 Replace windows_machine_ip with the public IP of Windows Server
@@ -99,10 +100,11 @@ Here's a quick break down of the configuration :-
 # Steps to install MySQL Exporter.
 
 1. Go into `exporter/mysql-exporter` directory. 
-2. Run `kubectl apply -f .`
-3. It'll create MySQL Deployment & MySQL Exporter with associated services as well.
-4. Configure prometheus.yaml to include mysql-exporter target.
-5. Add one more target in `prometheus.yaml`
+2. Run `kubectl apply -f mysql-ns.yaml`
+3. Run `kubectl apply -f .`
+4. It'll create MySQL Deployment & MySQL Exporter with associated services as well.
+5. Configure prometheus.yaml to include mysql-exporter target.
+6. Add one more target in `prometheus.yaml`
 ```
 - job_name: 'mysql'
     scrape_interval: 5s
@@ -122,7 +124,7 @@ Here's a quick break down of the configuration :-
 
 1. Clone this [Github Repository](https://github.com/harssssshh/Mongo-Flask-Dashboard)
 2. 3. Go into `MongoDB Flask Dashboard` directory
-3. Switch to monitoring branch using `git switch monitoring`.
+3. Switch to logging branch using `git switch logging`.
 4. Go into `eks-deployments` directory.
 5. Go through each of these manifests thoroughly and keep applying the manifests.
 6. Apply manifests in directory `kubectl apply -f .`
