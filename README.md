@@ -32,7 +32,7 @@ These exporters are essential tools for effectively monitoring Windows systems (
 
 1. Search for Server Manager > Local Server > Real-Time Protection Off
 
-
+<img src="https://github.com/amiharsh/poc/blob/main/assets/01-Disable-Enhanced-Security.png" width="900" height="400"/>
 
 ### Disable Windows Firewall / Defender
 Open the Control Panel on your Windows server.
@@ -41,6 +41,8 @@ Click on "Turn Windows Defender Firewall on or off" from the left sidebar.
 Select the "Turn off Windows Defender Firewall" option for both private and public networks.
 Click "OK" to save the settings.
 Disable Windows Defender:
+
+<img src="https://github.com/amiharsh/poc/blob/main/assets/02-Disable-Firewall.png" width="900" height="400"/>
 
 ### Install WMI Exporter from WMI Release Page:
 
@@ -51,22 +53,31 @@ Disable Windows Defender:
 
 4. Go into directory & execute the file.
 
-5. By Default, WMI Exporter runs on Port 9182
+<img src="https://github.com/amiharsh/poc/blob/main/assets/03-Running-Windows-Exporter.png" width="900" height="400"/>
+
+5. By Default, WMI Exporter runs on Port 9182 
+
+<img src="https://github.com/amiharsh/poc/blob/main/assets/04-Hitting-URL.png" width="900" height="400"/>
+
+<img src="https://github.com/amiharsh/poc/blob/main/assets/05-Hitting-Metrics-URL.png" width="900" height="400"/>
 
 6. In order for it to be scraped by Prometheus, we need to open Port 9182
 
 4. Expose Port Number 9182 in Security Group in AWS:
 
-### Sign in to the AWS Management Console
+### Sign in to the AWS Management Console.
 
-1. Navigate to the EC2 dashboard and click on "Security Groups" in the left sidebar
-2. Select the security group associated with your Windows server instance.
-3. Click on the "Inbound rules" tab and then click "Edit inbound rules."
-4. Add a rule to allow inbound traffic on port 9182 (the default port for WMI Exporter) by specifying the port (9182) and the source (e.g., your IP address or a custom range)
+1.  Navigate to the EC2 dashboard and click on "Security Groups" in the left sidebar.
+2.  Select the security group associated with your Windows server instance.
+3.  Click on the "Inbound rules" tab and then click "Edit inbound rules."
+4.  Add a rule to allow inbound traffic on port 9182 (the default port for WMI Exporter) by specifying the port (9182) and the source (e.g., your IP address or a custom range).
+
+<img src="https://github.com/amiharsh/poc/blob/main/assets/06-SG-Port.png" width="900" height="400"/>
+
+<img src="https://github.com/amiharsh/poc/blob/main/assets/07-Hitting-Public-IP.png" width="900" height="400"/>
+
 ### Registering the target in `prometheus.yaml`
-
 ```
-
 global:
   scrape_interval: 15s  # Scrape targets every 15 seconds.
 
@@ -74,10 +85,14 @@ scrape_configs:
   - job_name: 'wmi_exporter'
     static_configs:
       - targets: ['windows_machine_ip:9182']
-
 ```
 
+
 Replace windows_machine_ip with the public IP of Windows Server
+
+
+<img src="https://github.com/amiharsh/poc/blob/main/assets/08-Updating-Prometheus-Config.png" width="900" height="400"/>
+
 
 Here's a quick break down of the configuration :- 
 1. job_name: This is a label for this particular job. We're calling it 'wmi_exporter' in this example.
@@ -88,7 +103,12 @@ Here's a quick break down of the configuration :-
 ## Steps to cross-check in Prometheus
 1. Check if target is up & running state.
 
+<img src="https://github.com/amiharsh/poc/blob/main/assets/09-Checking-Targets.png" width="900" height="400"/>
+
 2. Check metrics exposed by WMI Exporter
+
+
+<img src="https://github.com/amiharsh/poc/blob/main/assets/10-Checking-Metrics.png" width="900" height="400"/>
 
 3.  In order to visualize the metrics collected by Prometheus, Use this [Dashboard](https://grafana.com/grafana/dashboards/14694-windows-exporter-dashboard/) available in the list of dashboards from Grafana Marketplace. 
 
@@ -96,15 +116,13 @@ Here's a quick break down of the configuration :-
 
 
 
-
 # Steps to install MySQL Exporter.
 
 1. Go into `exporter/mysql-exporter` directory. 
-2. Run `kubectl apply -f mysql-ns.yaml`
-3. Run `kubectl apply -f .`
-4. It'll create MySQL Deployment & MySQL Exporter with associated services as well.
-5. Configure prometheus.yaml to include mysql-exporter target.
-6. Add one more target in `prometheus.yaml`
+2. Run `kubectl apply -f .`
+3. It'll create MySQL Deployment & MySQL Exporter with associated services as well.
+4. Configure prometheus.yaml to include mysql-exporter target.
+5. Add one more target in `prometheus.yaml`
 ```
 - job_name: 'mysql'
     scrape_interval: 5s
@@ -124,7 +142,7 @@ Here's a quick break down of the configuration :-
 
 1. Clone this [Github Repository](https://github.com/harssssshh/Mongo-Flask-Dashboard)
 2. 3. Go into `MongoDB Flask Dashboard` directory
-3. Switch to logging branch using `git switch logging`.
+3. Switch to monitoring branch using `git switch monitoring`.
 4. Go into `eks-deployments` directory.
 5. Go through each of these manifests thoroughly and keep applying the manifests.
 6. Apply manifests in directory `kubectl apply -f .`
