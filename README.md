@@ -32,7 +32,7 @@ These exporters are essential tools for effectively monitoring Windows systems (
 
 1. Search for Server Manager > Local Server > Real-Time Protection Off
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/01-Disable-Enhanced-Security.png" width="50%" height="auto"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/01-Disable-Enhanced-Security.png" width="70%" height="auto"/>
 
 ### Disable Windows Firewall / Defender
 Open the Control Panel on your Windows server.
@@ -42,7 +42,7 @@ Select the "Turn off Windows Defender Firewall" option for both private and publ
 Click "OK" to save the settings.
 Disable Windows Defender:
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/02-Disable-Firewall.png" width="50%" height="auto"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/02-Disable-Firewall.png" width="70%" height="auto"/>
 
 ### Install WMI Exporter from WMI Release Page:
 
@@ -53,13 +53,13 @@ Disable Windows Defender:
 
 4. Go into directory & execute the file.
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/03-Running-Windows-Exporter.png" width="1800" height="900"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/03-Running-Windows-Exporter.png" width="70%" height="auto"/>
 
 5. By Default, WMI Exporter runs on Port 9182 
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/04-Hitting-URL.png" width="1800" height="900"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/04-Hitting-URL.png" width="70%" height="auto"/>
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/05-Hitting-Metrics-URL.png" width="1800" height="900"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/05-Hitting-Metrics-URL.png" width="70%" height="auto"/>
 
 6. In order for it to be scraped by Prometheus, we need to open Port 9182
 
@@ -72,9 +72,9 @@ Disable Windows Defender:
 3.  Click on the "Inbound rules" tab and then click "Edit inbound rules."
 4.  Add a rule to allow inbound traffic on port 9182 (the default port for WMI Exporter) by specifying the port (9182) and the source (e.g., your IP address or a custom range).
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/06-SG-Port.png" width="1800" height="900"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/06-SG-Port.png" width="70%" height="auto"/>
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/07-Hitting-Public-IP.png" width="1800" height="900"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/07-Hitting-Public-IP.png" width="70%" height="auto"/>
 
 ### Registering the target in `prometheus.yaml`
 ```
@@ -91,7 +91,7 @@ scrape_configs:
 Replace windows_machine_ip with the public IP of Windows Server
 
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/08-Updating-Prometheus-Config.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/08-Updating-Prometheus-Config.png" width="70%" height="auto"/>
 
 
 Here's a quick break down of the configuration :- 
@@ -103,12 +103,12 @@ Here's a quick break down of the configuration :-
 ## Steps to cross-check in Prometheus
 1. Check if target is up & running state.
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/09-Checking-Targets.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/09-Checking-Targets.png" width="70%" height="auto"/>
 
 2. Check metrics exposed by WMI Exporter
 
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/10-Checking-Metrics.png" width="900" height="400"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/10-Checking-Metrics.png" width="70%" height="auto"/>
 
 3.  In order to visualize the metrics collected by Prometheus, Use this [Dashboard](https://grafana.com/grafana/dashboards/14694-windows-exporter-dashboard/) available in the list of dashboards from Grafana Marketplace. 
 
