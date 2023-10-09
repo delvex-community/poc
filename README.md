@@ -32,7 +32,7 @@ These exporters are essential tools for effectively monitoring Windows systems (
 
 1. Search for Server Manager > Local Server > Real-Time Protection Off
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/01-Disable-Enhanced-Security.png" width="1800" height="900"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/01-Disable-Enhanced-Security.png" width="50%" height="auto"/>
 
 ### Disable Windows Firewall / Defender
 Open the Control Panel on your Windows server.
@@ -42,7 +42,7 @@ Select the "Turn off Windows Defender Firewall" option for both private and publ
 Click "OK" to save the settings.
 Disable Windows Defender:
 
-<img src="https://github.com/amiharsh/poc/blob/main/assets/02-Disable-Firewall.png" width="1800" height="900"/>
+<img src="https://github.com/amiharsh/poc/blob/main/assets/02-Disable-Firewall.png" width="50%" height="auto"/>
 
 ### Install WMI Exporter from WMI Release Page:
 
