@@ -63,3 +63,28 @@ pushgw-scrape-config      9s
 ```
 
 ### Note: you can check in prometheus UI under configuration 
+
+## Sending data to pushgateway 
+### Using curl 
+
+```
+ echo 'some_metric 3.14' | curl --data-binary @- http://localhost:8899/metrics/job/some_job/instance/some_instance
+```
+
+### like 
+
+```
+echo 'custom_metric 42' | curl --data-binary @- http://localhost:8899/metrics/job/webserver/instance/192.168.1.100
+```
+
+### python code 
+
+```
+from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
+
+registry = CollectorRegistry()
+g = Gauge('job_last_success_unixtime', 'Last time a batch job successfully finished', registry=registry)
+g.set_to_current_time()
+push_to_gateway('localhost:8899', job='ashutime-check', registry=registry)
+```
+
